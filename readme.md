@@ -1,6 +1,6 @@
 # Spring Boot Hotel Booking Application
 
-A brief description of what this project does and who it's for. This Spring Boot application facilitates hotel and booking management, leveraging H2 as an in-memory database and Redis for caching.
+This Spring Boot application facilitates hotel and booking management, leveraging H2 as an in-memory database and Redis for caching.
 
 ## Features
 
@@ -11,19 +11,13 @@ A brief description of what this project does and who it's for. This Spring Boot
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
 ### Prerequisites
-
-What things you need to install the software and how to install them:
 
 - JDK 11 or newer
 - Gradle (Version X.X or newer)
 - Redis server
 
 ### Installation
-
-A step-by-step series of examples that tell you how to get a development environment running.
 
 1. Clone the repository:
 
@@ -51,7 +45,6 @@ The application will now be accessible at http://localhost:8080.
 
 ## Usage
 
-Details on how to use the API, including endpoints and example requests and responses.
 ## Hotels
 
 - Create Hotel: POST /api/hotels
