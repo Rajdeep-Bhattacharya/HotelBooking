@@ -85,3 +85,4 @@ Example request body:
 -  Redis - Used for caching.
 -  JUnit - Used for testing.
 -  Mockito - Used for mocking in tests.
+- Github actions - automatically run all junit tests on the repository when a pr is raised to be merged to main
