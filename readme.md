@@ -1,4 +1,4 @@
-# Project Title: Spring Boot Hotel Booking Application
+# Spring Boot Hotel Booking Application
 
 A brief description of what this project does and who it's for. This Spring Boot application facilitates hotel and booking management, leveraging H2 as an in-memory database and Redis for caching.
 
