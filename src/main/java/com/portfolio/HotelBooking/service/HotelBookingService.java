@@ -16,37 +16,44 @@ public class HotelBookingService {
 
     @Autowired
     private HotelBookingRepository bookingRepository;
-
     @Autowired
-    private HotelRepository hotelRepository; // Assuming you have a HotelRepository
+    private HotelRepository hotelRepository;
     @Autowired
     private HotelBookingCacheRepository cacheRepository;
-    // Fetch bookings by hotel ID
-    public List<HotelBooking> getBookingsByHotel(Long hotelId) {
-        return bookingRepository.findByHotelId(hotelId);
+
+
+    @Autowired
+    public HotelBookingService(HotelBookingCacheRepository cacheRepository) {
+        this.cacheRepository = cacheRepository;
     }
 
-    // Create or update a booking with hotel ID
+    public List<HotelBooking> getBookingsByHotel(Long hotelId) {
+        return bookingRepository.findByHotel_Id(hotelId);
+    }
+
     public HotelBooking saveBooking(Long hotelId, HotelBooking booking) {
-        // Find the hotel by ID
         Hotel hotel = hotelRepository.findById(hotelId)
                 .orElseThrow(() -> new RuntimeException("Hotel not found with id: " + hotelId));
-
-        // Set the hotel to the booking
         booking.setHotel(hotel);
-
-        // Save the booking
         return bookingRepository.save(booking);
     }
 
 
     public HotelBooking createBooking(HotelBooking booking) {
-        // Optionally add caching logic here
-        return bookingRepository.save(booking);
+        if (booking.getHotelId() != null) {
+            Hotel hotel = hotelRepository.findById(booking.getHotelId())
+                    .orElseThrow(() -> new RuntimeException("Hotel not found with id: " + booking.getHotelId()));
+            booking.setHotel(hotel);
+        } else {
+            throw new RuntimeException("Hotel ID must be provided");
+        }
+
+        HotelBooking savedBooking = bookingRepository.save(booking);
+        cacheRepository.save(savedBooking); // Assuming this method is correctly implemented
+        return savedBooking;
     }
 
     public Optional<HotelBooking> getBookingById(Long id) {
-        // Check cache first, then fall back to SQL DB
         return Optional.ofNullable(cacheRepository.findById(id)
                 .orElseGet(() -> bookingRepository.findById(id).orElse(null)));
     }

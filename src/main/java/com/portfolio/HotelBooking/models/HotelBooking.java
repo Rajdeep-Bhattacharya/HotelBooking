@@ -2,11 +2,12 @@ package com.portfolio.HotelBooking.models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class HotelBooking {
-
+public class HotelBooking implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,6 +16,8 @@ public class HotelBooking {
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")
     private Hotel hotel;
+    @Transient
+    private Long hotelId;
 
     private LocalDate checkIn;
     private LocalDate checkOut;
@@ -44,6 +47,14 @@ public class HotelBooking {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     public Hotel getHotel() {
